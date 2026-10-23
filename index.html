@@ -100,7 +100,8 @@
                         placeholder="Search Products">
                     <button type="button" class="btn btn-warning rounded-pill px-4">Search</button>
                 </form>
-                <button class="btn btn-success rounded-pill px-4 py-2 fw-bold me-1"> 🛒Buy Now!</button>
+                <button type="button" class="btn btn-success rounded-pill px-4 py-2 fw-bold me-1"
+                    id="shopNowButton"> 🛒Buy Now!</button>
 
                 <ul class="navbar-nav d-flex flex-row">
                     <li class="nav-item mx-2">
@@ -208,7 +209,8 @@
                     <div class="card-body text-center">
                         <h5>Fresh Milk</h5>
                         <p><i class="bi bi-currency-rupee"></i>₹40 / Litre</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Fresh Milk" data-price="40">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -218,7 +220,8 @@
                     <div class="card-body text-center">
                         <h5>Butter</h5>
                         <p>₹60 / Pack</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Butter" data-price="60">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -228,7 +231,8 @@
                     <div class="card-body text-center">
                         <h5>Cheese</h5>
                         <p>₹120 / Pack</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Cheese" data-price="120">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -238,7 +242,8 @@
                     <div class="card-body text-center">
                         <h5>Curd</h5>
                         <p>₹35 / Pack</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Curd" data-price="35">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -248,7 +253,8 @@
                     <div class="card-body text-center">
                         <h5>Ghee</h5>
                         <p>₹250 / Jar</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Ghee" data-price="250">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -258,7 +264,8 @@
                     <div class="card-body text-center">
                         <h5>Ice Cream</h5>
                         <p>₹80 / Cup</p>
-                        <button class="btn btn-success rounded-pill px-4 fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill px-4 fw-bold buy-now-button"
+                            data-product="Ice Cream" data-price="80">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -268,7 +275,8 @@
                     <div class="card-body text-center">
                         <h5>Yogurt</h5>
                         <p>₹50 / Pack</p>
-                        <button class="btn btn-success rounded-pill fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill fw-bold buy-now-button"
+                            data-product="Yogurt" data-price="50">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -278,7 +286,8 @@
                     <div class="card-body text-center">
                         <h5>Chocolate</h5>
                         <p>₹120 / Pack</p>
-                        <button class="btn btn-success rounded-pill fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill fw-bold buy-now-button"
+                            data-product="Chocolate" data-price="120">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -288,12 +297,57 @@
                     <div class="card-body text-center">
                         <h5>Condensed Milk</h5>
                         <p>₹95 / Tin</p>
-                        <button class="btn btn-success rounded-pill fw-bold">Buy Now</button>
+                        <button type="button" class="btn btn-success rounded-pill fw-bold buy-now-button"
+                            data-product="Condensed Milk" data-price="95">Buy Now</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fw-bold" id="checkoutTitle">Complete Your Order</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkoutForm">
+                        <p class="fw-semibold mb-3">
+                            Product: <span id="checkoutProduct"></span><br>
+                            Price: ₹<span id="checkoutPrice"></span> each
+                        </p>
+                        <div class="mb-3">
+                            <label for="orderName" class="form-label">Your name</label>
+                            <input id="orderName" name="name" type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="orderPhone" class="form-label">Mobile number</label>
+                            <input id="orderPhone" name="phone" type="tel" class="form-control"
+                                pattern="[0-9]{10}" maxlength="10" inputmode="numeric"
+                                title="Enter a 10-digit mobile number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="orderAddress" class="form-label">Delivery address</label>
+                            <textarea id="orderAddress" name="address" class="form-control" rows="3"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="orderQuantity" class="form-label">Quantity</label>
+                            <input id="orderQuantity" name="quantity" type="number" class="form-control"
+                                min="1" max="99" value="1" required>
+                        </div>
+                        <p class="fw-bold">Total: ₹<span id="orderTotal"></span></p>
+                        <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold">Place Order</button>
+                    </form>
+                    <div id="orderConfirmation" class="alert alert-success mb-0" role="status" hidden></div>
+                    <div id="orderError" class="alert alert-danger mb-0" role="alert" hidden></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section id="contact" class="container my-4 py-3 bg-light rounded-4">
         <h2 class=" display-5 text-center fw-bold text-success mb-4">Contact Us</h2>
         <p class="text-center fw-semibold mb-5">
@@ -385,6 +439,96 @@
             </p>
         </div>
     </footer>
+    <script>
+        (() => {
+            const checkoutModalElement = document.getElementById("checkoutModal");
+            const checkoutModal = new bootstrap.Modal(checkoutModalElement);
+            const checkoutForm = document.getElementById("checkoutForm");
+            const productLabel = document.getElementById("checkoutProduct");
+            const priceLabel = document.getElementById("checkoutPrice");
+            const quantityInput = document.getElementById("orderQuantity");
+            const totalLabel = document.getElementById("orderTotal");
+            const confirmation = document.getElementById("orderConfirmation");
+            const errorMessage = document.getElementById("orderError");
+            let selectedProduct = null;
+
+            function updateTotal() {
+                const quantity = Number(quantityInput.value);
+                totalLabel.textContent = selectedProduct && quantity > 0
+                    ? (selectedProduct.price * quantity).toFixed(2)
+                    : "0.00";
+            }
+
+            function openCheckout(product, price) {
+                selectedProduct = { name: product, price: Number(price) };
+                productLabel.textContent = selectedProduct.name;
+                priceLabel.textContent = selectedProduct.price.toFixed(2);
+                quantityInput.value = "1";
+                checkoutForm.reset();
+                quantityInput.value = "1";
+                checkoutForm.hidden = false;
+                confirmation.hidden = true;
+                errorMessage.hidden = true;
+                updateTotal();
+                checkoutModal.show();
+            }
+
+            document.querySelectorAll(".buy-now-button").forEach((button) => {
+                button.addEventListener("click", () => {
+                    openCheckout(button.dataset.product, button.dataset.price);
+                });
+            });
+
+            document.getElementById("shopNowButton").addEventListener("click", () => {
+                document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+            });
+
+            quantityInput.addEventListener("input", updateTotal);
+
+            checkoutForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                errorMessage.hidden = true;
+
+                if (!selectedProduct || !checkoutForm.reportValidity()) {
+                    return;
+                }
+
+                const formData = new FormData(checkoutForm);
+                const order = {
+                    orderId: `DP-${Date.now()}`,
+                    product: selectedProduct.name,
+                    price: selectedProduct.price,
+                    quantity: Number(formData.get("quantity")),
+                    total: selectedProduct.price * Number(formData.get("quantity")),
+                    customer: {
+                        name: String(formData.get("name")).trim(),
+                        phone: String(formData.get("phone")).trim(),
+                        address: String(formData.get("address")).trim()
+                    },
+                    createdAt: new Date().toISOString()
+                };
+
+                try {
+                    const savedOrders = JSON.parse(localStorage.getItem("dairyOrders") || "[]");
+                    if (!Array.isArray(savedOrders)) {
+                        throw new Error("Saved order data is invalid.");
+                    }
+                    savedOrders.push(order);
+                    localStorage.setItem("dairyOrders", JSON.stringify(savedOrders));
+                } catch (error) {
+                    console.error("Unable to save order:", error);
+                    errorMessage.textContent = "Order could not be saved in this browser. Please try again.";
+                    errorMessage.hidden = false;
+                    return;
+                }
+
+                checkoutForm.hidden = true;
+                confirmation.textContent =
+                    `Order placed! Your order ID is ${order.orderId}. This demo stores orders only in this browser.`;
+                confirmation.hidden = false;
+            });
+        })();
+    </script>
     </div>
 </body>
 
